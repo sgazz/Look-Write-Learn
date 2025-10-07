@@ -327,13 +327,13 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                                 backgroundColor: Colors.purple,
                               ),
                               _buildAnimatedButton(
-                                onPressed: () {}, // TODO: Implement undo
+                                onPressed: () => DrawingCanvas.undoNotifier.value = true,
                                 icon: Icons.undo,
                                 label: 'Undo',
                                 backgroundColor: Colors.orange,
                               ),
                               _buildAnimatedButton(
-                                onPressed: () {}, // TODO: Implement redo
+                                onPressed: () => DrawingCanvas.redoNotifier.value = true,
                                 icon: Icons.redo,
                                 label: 'Redo',
                                 backgroundColor: Colors.teal,
@@ -346,7 +346,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               _buildAnimatedButton(
-                                onPressed: () {}, // TODO: Implement clear
+                                onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
                                 icon: Icons.clear,
                                 label: 'Clear',
                                 backgroundColor: Colors.red,
@@ -379,20 +379,20 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                         ),
                         const SizedBox(width: 8),
                         _buildAnimatedButton(
-                          onPressed: () {}, // TODO: Implement undo
+                          onPressed: () => DrawingCanvas.undoNotifier.value = true,
                           icon: Icons.undo,
                           label: 'Undo',
                           backgroundColor: Colors.orange,
                         ),
                         _buildAnimatedButton(
-                          onPressed: () {}, // TODO: Implement redo
+                          onPressed: () => DrawingCanvas.redoNotifier.value = true,
                           icon: Icons.redo,
                           label: 'Redo',
                           backgroundColor: Colors.teal,
                         ),
                         const SizedBox(width: 16),
                         _buildAnimatedButton(
-                          onPressed: () {}, // TODO: Implement clear
+                          onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
                           icon: Icons.clear,
                           label: 'Clear',
                           backgroundColor: Colors.red,
@@ -406,11 +406,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
             Expanded(
               child: Stack(
                 children: [
-                  DrawingCanvas(
-                    strokeColor: strokeColor,
-                    strokeWidth: strokeWidth,
-                    onClearRequested: () {},
-                  ),
+          DrawingCanvas(
+            strokeColor: strokeColor,
+            strokeWidth: strokeWidth,
+            onClearRequested: () {},
+            isEraserMode: isEraserMode,
+          ),
                   // Model letter as non-interactive overlay with animation
                   IgnorePointer(
                     child: Center(
