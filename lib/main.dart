@@ -242,83 +242,81 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final TextStyle guideStyle = useOutlineFont 
-      ? GoogleFonts.caveat(
-          textStyle: TextStyle(
-            fontSize: 240,
-            color: Colors.transparent, // Transparent fill for outline effect
-            fontWeight: FontWeight.w300,
-            shadows: [
-              // Create thick outline with multiple shadows
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-3, -3),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(3, -3),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-3, 3),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(3, 3),
-                blurRadius: 0,
-              ),
-              // Additional shadows for thicker outline
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-2, -2),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(2, -2),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-2, 2),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(2, 2),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-1, -1),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(1, -1),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(-1, 1),
-                blurRadius: 0,
-              ),
-              Shadow(
-                color: Colors.black,
-                offset: const Offset(1, 1),
-                blurRadius: 0,
-              ),
-            ],
-          ),
+      ? TextStyle(
+          fontFamily: 'Arial Rounded MT Bold',
+          fontSize: 240,
+          color: Colors.transparent, // Transparent fill for outline effect
+          fontWeight: FontWeight.bold,
+          shadows: [
+            // Create thick outline with multiple shadows
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-3, -3),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(3, -3),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-3, 3),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(3, 3),
+              blurRadius: 0,
+            ),
+            // Additional shadows for thicker outline
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-2, -2),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(2, -2),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-2, 2),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(2, 2),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-1, -1),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(1, -1),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(-1, 1),
+              blurRadius: 0,
+            ),
+            Shadow(
+              color: Colors.black,
+              offset: const Offset(1, 1),
+              blurRadius: 0,
+            ),
+          ],
         )
-      : GoogleFonts.caveat(
-          textStyle: TextStyle(
-            fontSize: 240,
-            color: Colors.grey.withOpacity(0.3),
-            fontWeight: FontWeight.w300,
-          ),
+      : TextStyle(
+          fontFamily: 'Arial Rounded MT Bold',
+          fontSize: 240,
+          color: Colors.grey.withOpacity(0.3),
+          fontWeight: FontWeight.bold,
         );
 
     return Theme(
