@@ -239,6 +239,50 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
         fontSize: 240,
         color: Colors.grey.withOpacity(0.3),
         fontWeight: FontWeight.w300,
+        shadows: [
+          // Create outline effect with multiple shadows
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(-2, -2),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(2, -2),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(-2, 2),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(2, 2),
+            blurRadius: 0,
+          ),
+          // Add more shadows for thicker outline
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(-1, -1),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(1, -1),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(-1, 1),
+            blurRadius: 0,
+          ),
+          Shadow(
+            color: Colors.black,
+            offset: const Offset(1, 1),
+            blurRadius: 0,
+          ),
+        ],
       ),
     );
 
