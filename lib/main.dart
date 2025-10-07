@@ -36,6 +36,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   GuideMode guideMode = GuideMode.upper;
   Color strokeColor = Colors.indigo;
   double strokeWidth = 8.0;
+  bool useOutlineFont = false;
   
   late AnimationController _letterAnimationController;
   late AnimationController _buttonAnimationController;
@@ -121,6 +122,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     });
     _letterAnimationController.reset();
     _letterAnimationController.forward();
+  }
+
+  void _toggleFontStyle() {
+    setState(() {
+      useOutlineFont = !useOutlineFont;
+    });
   }
 
 
@@ -234,57 +241,85 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final TextStyle guideStyle = GoogleFonts.caveat(
-      textStyle: TextStyle(
-        fontSize: 240,
-        color: Colors.grey.withOpacity(0.3),
-        fontWeight: FontWeight.w300,
-        shadows: [
-          // Create outline effect with multiple shadows
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(-2, -2),
-            blurRadius: 0,
+    final TextStyle guideStyle = useOutlineFont 
+      ? GoogleFonts.caveat(
+          textStyle: TextStyle(
+            fontSize: 240,
+            color: Colors.transparent, // Transparent fill for outline effect
+            fontWeight: FontWeight.w300,
+            shadows: [
+              // Create thick outline with multiple shadows
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-3, -3),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(3, -3),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-3, 3),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(3, 3),
+                blurRadius: 0,
+              ),
+              // Additional shadows for thicker outline
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-2, -2),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(2, -2),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-2, 2),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(2, 2),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-1, -1),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(1, -1),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(-1, 1),
+                blurRadius: 0,
+              ),
+              Shadow(
+                color: Colors.black,
+                offset: const Offset(1, 1),
+                blurRadius: 0,
+              ),
+            ],
           ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(2, -2),
-            blurRadius: 0,
+        )
+      : GoogleFonts.caveat(
+          textStyle: TextStyle(
+            fontSize: 240,
+            color: Colors.grey.withOpacity(0.3),
+            fontWeight: FontWeight.w300,
           ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(-2, 2),
-            blurRadius: 0,
-          ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(2, 2),
-            blurRadius: 0,
-          ),
-          // Add more shadows for thicker outline
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(-1, -1),
-            blurRadius: 0,
-          ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(1, -1),
-            blurRadius: 0,
-          ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(-1, 1),
-            blurRadius: 0,
-          ),
-          Shadow(
-            color: Colors.black,
-            offset: const Offset(1, 1),
-            blurRadius: 0,
-          ),
-        ],
-      ),
-    );
+        );
 
     return Theme(
       data: ThemeData.light().copyWith(
@@ -575,6 +610,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                                 label: 'Redo',
                                 backgroundColor: Colors.teal,
                               ),
+                              _buildAnimatedButton(
+                                onPressed: _toggleFontStyle,
+                                icon: useOutlineFont ? Icons.text_fields : Icons.text_fields_outlined,
+                                label: useOutlineFont ? 'Outline' : 'Normal',
+                                backgroundColor: useOutlineFont ? Colors.deepPurple : Colors.brown,
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -626,6 +667,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           icon: Icons.redo,
                           label: 'Redo',
                           backgroundColor: Colors.teal,
+                        ),
+                        _buildAnimatedButton(
+                          onPressed: _toggleFontStyle,
+                          icon: useOutlineFont ? Icons.text_fields : Icons.text_fields_outlined,
+                          label: useOutlineFont ? 'Outline' : 'Normal',
+                          backgroundColor: useOutlineFont ? Colors.deepPurple : Colors.brown,
                         ),
                         const SizedBox(width: 16),
                         _buildAnimatedButton(
