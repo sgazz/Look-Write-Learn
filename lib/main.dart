@@ -129,50 +129,103 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   void _pickColor() async {
     final List<Color> palette = <Color>[
       Colors.black,
-      Colors.indigo,
-      Colors.blue,
-      Colors.green,
-      Colors.orange,
       Colors.red,
       Colors.pink,
-      Colors.brown,
-      Colors.teal,
       Colors.purple,
+      Colors.deepPurple,
+      Colors.indigo,
+      Colors.blue,
+      Colors.lightBlue,
+      Colors.cyan,
+      Colors.teal,
+      Colors.green,
+      Colors.lightGreen,
+      Colors.lime,
+      Colors.yellow,
+      Colors.amber,
+      Colors.orange,
+      Colors.deepOrange,
+      Colors.brown,
+      Colors.grey,
+      Colors.blueGrey,
     ];
     await showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Pick color'),
+          title: Row(
+            children: [
+              Icon(Icons.palette, color: Colors.purple),
+              const SizedBox(width: 8),
+              const Text('Choose Your Color! 🌈'),
+            ],
+          ),
           content: SizedBox(
-            width: 320,
-            child: Wrap(
-              spacing: 12,
-              runSpacing: 12,
+            width: 360,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                for (final Color c in palette)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() => strokeColor = c);
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: c,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black12),
+                const Text(
+                  'Pick your favorite color to draw with!',
+                  style: TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 16),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    for (final Color c in palette)
+                      GestureDetector(
+                        onTap: () {
+                          setState(() => strokeColor = c);
+                          Navigator.of(context).pop();
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: c,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: strokeColor == c ? Colors.white : Colors.black26,
+                              width: strokeColor == c ? 3 : 1,
+                            ),
+                            boxShadow: strokeColor == c
+                                ? [
+                                    BoxShadow(
+                                      color: c.withOpacity(0.5),
+                                      blurRadius: 8,
+                                      spreadRadius: 2,
+                                    ),
+                                  ]
+                                : [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                          ),
+                          child: strokeColor == c
+                              ? const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : null,
+                        ),
                       ),
-                    ),
-                  ),
+                  ],
+                ),
               ],
             ),
           ),
           actions: [
-            TextButton(
+            TextButton.icon(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
+              icon: const Icon(Icons.close),
+              label: const Text('Close'),
             )
           ],
         );
@@ -213,12 +266,28 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('LookWriteLearn'),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.edit, color: Colors.pink),
+              const SizedBox(width: 8),
+              const Text('LookWriteLearn'),
+              const SizedBox(width: 8),
+              Icon(Icons.school, color: Colors.blue),
+            ],
+          ),
           centerTitle: true,
+          backgroundColor: Colors.orange.shade100,
+          foregroundColor: Colors.deepPurple,
+          elevation: 8,
+          shadowColor: Colors.orange.withOpacity(0.3),
           actions: [
             IconButton(
               onPressed: _toggleDarkMode,
-              icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+              icon: Icon(
+                isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                color: isDarkMode ? Colors.amber : Colors.indigo,
+              ),
               tooltip: isDarkMode ? 'Light Mode' : 'Dark Mode',
             ),
           ],
@@ -238,16 +307,18 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              _buildAnimatedButton(
-                                onPressed: _prevGuide,
-                                icon: Icons.arrow_back,
-                                label: 'Prev',
-                              ),
-                              _buildAnimatedButton(
-                                onPressed: _nextGuide,
-                                icon: Icons.arrow_forward,
-                                label: 'Next',
-                              ),
+                            _buildAnimatedButton(
+                              onPressed: _prevGuide,
+                              icon: Icons.arrow_back,
+                              label: 'Prev',
+                              backgroundColor: Colors.blue,
+                            ),
+                            _buildAnimatedButton(
+                              onPressed: _nextGuide,
+                              icon: Icons.arrow_forward,
+                              label: 'Next',
+                              backgroundColor: Colors.green,
+                            ),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -256,11 +327,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               _buildModeSelector(),
-                              _buildAnimatedButton(
-                                onPressed: _pickColor,
-                                icon: Icons.palette,
-                                label: 'Color',
-                              ),
+                            _buildAnimatedButton(
+                              onPressed: _pickColor,
+                              icon: Icons.palette,
+                              label: 'Color',
+                              backgroundColor: Colors.purple,
+                            ),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -298,11 +370,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           const SizedBox(width: 16),
                           _buildModeSelector(),
                           const SizedBox(width: 16),
-                          _buildAnimatedButton(
-                            onPressed: _pickColor,
-                            icon: Icons.palette,
-                            label: 'Color',
-                          ),
+                            _buildAnimatedButton(
+                              onPressed: _pickColor,
+                              icon: Icons.palette,
+                              label: 'Color',
+                              backgroundColor: Colors.purple,
+                            ),
                           const SizedBox(width: 16),
                           const Icon(Icons.brush, size: 20),
                           const SizedBox(width: 8),
@@ -358,12 +431,24 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                     onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
                     icon: Icons.clear,
                     label: 'Clear',
+                    backgroundColor: Colors.red,
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
-                    child: Text(
-                      'Practice drawing letters and numbers',
+                  Expanded(
+                    child: RichText(
                       textAlign: TextAlign.right,
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepPurple,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        children: [
+                          const TextSpan(text: '🎨 '),
+                          const TextSpan(text: 'Practice drawing letters and numbers'),
+                          const TextSpan(text: ' ✨'),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -379,6 +464,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     required VoidCallback onPressed,
     required IconData icon,
     required String label,
+    Color? backgroundColor,
   }) {
     return AnimatedBuilder(
       animation: _buttonScaleAnimation,
@@ -396,6 +482,10 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
             label: Text(label),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              backgroundColor: backgroundColor,
+              foregroundColor: backgroundColor != null ? Colors.white : null,
+              elevation: 4,
+              shadowColor: backgroundColor?.withOpacity(0.3),
             ),
           ),
         );
