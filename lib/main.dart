@@ -36,8 +36,6 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   GuideMode guideMode = GuideMode.upper;
   Color strokeColor = Colors.indigo;
   double strokeWidth = 8.0;
-  bool isDarkMode = false;
-  bool isEraserMode = false;
   
   late AnimationController _letterAnimationController;
   late AnimationController _buttonAnimationController;
@@ -121,11 +119,6 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     _letterAnimationController.forward();
   }
 
-  void _toggleEraserMode() {
-    setState(() {
-      isEraserMode = !isEraserMode;
-    });
-  }
 
   void _pickColor() async {
     final List<Color> palette = <Color>[
@@ -237,14 +230,10 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = isDarkMode || theme.brightness == Brightness.dark;
-    
     final TextStyle guideStyle = GoogleFonts.caveat(
       textStyle: TextStyle(
         fontSize: 240,
-        color: isDark 
-          ? Colors.white.withOpacity(0.2)
-          : Colors.grey.withOpacity(0.3),
+        color: Colors.grey.withOpacity(0.3),
         fontWeight: FontWeight.w300,
       ),
     );
@@ -274,16 +263,6 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           foregroundColor: Colors.deepPurple,
           elevation: 8,
           shadowColor: Colors.orange.withOpacity(0.3),
-          actions: [
-            IconButton(
-              onPressed: _toggleEraserMode,
-              icon: Icon(
-                isEraserMode ? Icons.brush : Icons.auto_fix_high,
-                color: isEraserMode ? Colors.red : Colors.orange,
-              ),
-              tooltip: isEraserMode ? 'Switch to Brush' : 'Switch to Eraser',
-            ),
-          ],
         ),
         body: Column(
           children: [
@@ -347,7 +326,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             children: [
                               _buildAnimatedButton(
                                 onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
-                                icon: Icons.clear,
+                                icon: Icons.auto_fix_high,
                                 label: 'Clear',
                                 backgroundColor: Colors.red,
                               ),
@@ -393,7 +372,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                         const SizedBox(width: 16),
                         _buildAnimatedButton(
                           onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
-                          icon: Icons.clear,
+                          icon: Icons.auto_fix_high,
                           label: 'Clear',
                           backgroundColor: Colors.red,
                         ),
@@ -410,7 +389,6 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             onClearRequested: () {},
-            isEraserMode: isEraserMode,
           ),
                   // Model letter as non-interactive overlay with animation
                   IgnorePointer(
