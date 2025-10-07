@@ -37,6 +37,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
   Color strokeColor = Colors.indigo;
   double strokeWidth = 8.0;
   bool isDarkMode = false;
+  bool isEraserMode = false;
   
   late AnimationController _letterAnimationController;
   late AnimationController _buttonAnimationController;
@@ -120,9 +121,9 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     _letterAnimationController.forward();
   }
 
-  void _toggleDarkMode() {
+  void _toggleEraserMode() {
     setState(() {
-      isDarkMode = !isDarkMode;
+      isEraserMode = !isEraserMode;
     });
   }
 
@@ -249,21 +250,13 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     );
 
     return Theme(
-      data: isDarkMode 
-        ? ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.indigo,
-              brightness: Brightness.dark,
-            ),
-            useMaterial3: true,
-          )
-        : ThemeData.light().copyWith(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.indigo,
-              brightness: Brightness.light,
-            ),
-            useMaterial3: true,
-          ),
+      data: ThemeData.light().copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: Row(
@@ -283,12 +276,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           shadowColor: Colors.orange.withOpacity(0.3),
           actions: [
             IconButton(
-              onPressed: _toggleDarkMode,
+              onPressed: _toggleEraserMode,
               icon: Icon(
-                isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                color: isDarkMode ? Colors.amber : Colors.indigo,
+                isEraserMode ? Icons.brush : Icons.auto_fix_high,
+                color: isEraserMode ? Colors.red : Colors.orange,
               ),
-              tooltip: isDarkMode ? 'Light Mode' : 'Dark Mode',
+              tooltip: isEraserMode ? 'Switch to Brush' : 'Switch to Eraser',
             ),
           ],
         ),
@@ -327,29 +320,36 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               _buildModeSelector(),
-                            _buildAnimatedButton(
-                              onPressed: _pickColor,
-                              icon: Icons.palette,
-                              label: 'Color',
-                              backgroundColor: Colors.purple,
-                            ),
+                              _buildAnimatedButton(
+                                onPressed: _pickColor,
+                                icon: Icons.palette,
+                                label: 'Color',
+                                backgroundColor: Colors.purple,
+                              ),
+                              _buildAnimatedButton(
+                                onPressed: () {}, // TODO: Implement undo
+                                icon: Icons.undo,
+                                label: 'Undo',
+                                backgroundColor: Colors.orange,
+                              ),
+                              _buildAnimatedButton(
+                                onPressed: () {}, // TODO: Implement redo
+                                icon: Icons.redo,
+                                label: 'Redo',
+                                backgroundColor: Colors.teal,
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8),
-                          // Third row for mobile
+                          // Third row for mobile - Clear button
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.brush, size: 20),
-                              const Text('Width'),
-                              SizedBox(
-                                width: 120,
-                                child: Slider(
-                                  value: strokeWidth,
-                                  min: 2,
-                                  max: 24,
-                                  onChanged: (double v) => setState(() => strokeWidth = v),
-                                ),
+                              _buildAnimatedButton(
+                                onPressed: () {}, // TODO: Implement clear
+                                icon: Icons.clear,
+                                label: 'Clear',
+                                backgroundColor: Colors.red,
                               ),
                             ],
                           ),
@@ -371,24 +371,31 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           const SizedBox(width: 16),
                           _buildModeSelector(),
                           const SizedBox(width: 16),
-                            _buildAnimatedButton(
-                              onPressed: _pickColor,
-                              icon: Icons.palette,
-                              label: 'Color',
-                              backgroundColor: Colors.purple,
-                            ),
-                        const SizedBox(width: 16),
-                        const Icon(Icons.brush, size: 20),
+                        _buildAnimatedButton(
+                          onPressed: _pickColor,
+                          icon: Icons.palette,
+                          label: 'Color',
+                          backgroundColor: Colors.purple,
+                        ),
                         const SizedBox(width: 8),
-                        const Text('Width'),
-                        SizedBox(
-                          width: 120,
-                          child: Slider(
-                            value: strokeWidth,
-                            min: 2,
-                            max: 24,
-                            onChanged: (double v) => setState(() => strokeWidth = v),
-                          ),
+                        _buildAnimatedButton(
+                          onPressed: () {}, // TODO: Implement undo
+                          icon: Icons.undo,
+                          label: 'Undo',
+                          backgroundColor: Colors.orange,
+                        ),
+                        _buildAnimatedButton(
+                          onPressed: () {}, // TODO: Implement redo
+                          icon: Icons.redo,
+                          label: 'Redo',
+                          backgroundColor: Colors.teal,
+                        ),
+                        const SizedBox(width: 16),
+                        _buildAnimatedButton(
+                          onPressed: () {}, // TODO: Implement clear
+                          icon: Icons.clear,
+                          label: 'Clear',
+                          backgroundColor: Colors.red,
                         ),
                         ],
                       );
@@ -424,38 +431,6 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                 ],
               ),
             ),
-            // Bottom actions
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              child: Row(
-                children: [
-                  _buildAnimatedButton(
-                    onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
-                    icon: Icons.clear,
-                    label: 'Clear',
-                    backgroundColor: Colors.red,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: RichText(
-                      textAlign: TextAlign.right,
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          const TextSpan(text: '🎨 '),
-                          const TextSpan(text: 'Practice drawing letters and numbers'),
-                          const TextSpan(text: ' ✨'),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
           ],
         ),
       ),
