@@ -461,9 +461,9 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           value: GuideMode.upper, 
           child: Row(
             children: [
-              Icon(Icons.text_fields),
+              Icon(Icons.text_fields, color: Colors.blue),
               SizedBox(width: 8),
-              Text('Uppercase'),
+              Text('A B C'),
             ],
           ),
         ),
@@ -471,9 +471,9 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           value: GuideMode.lower, 
           child: Row(
             children: [
-              Icon(Icons.text_fields_outlined),
+              Icon(Icons.text_fields_outlined, color: Colors.green),
               SizedBox(width: 8),
-              Text('Lowercase'),
+              Text('a b c'),
             ],
           ),
         ),
@@ -481,31 +481,72 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           value: GuideMode.number, 
           child: Row(
             children: [
-              Icon(Icons.numbers),
+              Icon(Icons.numbers, color: Colors.orange),
               SizedBox(width: 8),
-              Text('Numbers'),
+              Text('1 2 3'),
             ],
           ),
         ),
       ],
-      child: ElevatedButton.icon(
-        onPressed: null,
-        icon: Icon(
-          switch (guideMode) {
-            GuideMode.upper => Icons.text_fields,
-            GuideMode.lower => Icons.text_fields_outlined,
-            GuideMode.number => Icons.numbers,
-          },
-        ),
-        label: Text(
-          switch (guideMode) {
-            GuideMode.upper => 'Uppercase',
-            GuideMode.lower => 'Lowercase',
-            GuideMode.number => 'Numbers',
-          },
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Tooltip(
+        message: switch (guideMode) {
+          GuideMode.upper => 'Uppercase Letters',
+          GuideMode.lower => 'Lowercase Letters', 
+          GuideMode.number => 'Numbers',
+        },
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: switch (guideMode) {
+              GuideMode.upper => Colors.blue.withOpacity(0.1),
+              GuideMode.lower => Colors.green.withOpacity(0.1),
+              GuideMode.number => Colors.orange.withOpacity(0.1),
+            },
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: switch (guideMode) {
+                GuideMode.upper => Colors.blue,
+                GuideMode.lower => Colors.green,
+                GuideMode.number => Colors.orange,
+              },
+              width: 2,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                switch (guideMode) {
+                  GuideMode.upper => Icons.text_fields,
+                  GuideMode.lower => Icons.text_fields_outlined,
+                  GuideMode.number => Icons.numbers,
+                },
+                color: switch (guideMode) {
+                  GuideMode.upper => Colors.blue,
+                  GuideMode.lower => Colors.green,
+                  GuideMode.number => Colors.orange,
+                },
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                switch (guideMode) {
+                  GuideMode.upper => 'A B C',
+                  GuideMode.lower => 'a b c',
+                  GuideMode.number => '1 2 3',
+                },
+                style: TextStyle(
+                  color: switch (guideMode) {
+                    GuideMode.upper => Colors.blue,
+                    GuideMode.lower => Colors.green,
+                    GuideMode.number => Colors.orange,
+                  },
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
