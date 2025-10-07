@@ -690,12 +690,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
             Expanded(
               child: Stack(
                 children: [
-          DrawingCanvas(
-            strokeColor: strokeColor,
-            strokeWidth: strokeWidth,
-            onClearRequested: () {},
-          ),
-                  // Model letter as non-interactive overlay with animation
+                  // Model letter as background guide (bottom layer)
                   IgnorePointer(
                     child: Center(
                       child: AnimatedBuilder(
@@ -711,6 +706,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                         },
                       ),
                     ),
+                  ),
+                  // Drawing canvas on top (top layer)
+                  DrawingCanvas(
+                    strokeColor: strokeColor,
+                    strokeWidth: strokeWidth,
+                    onClearRequested: () {},
                   ),
                 ],
               ),
