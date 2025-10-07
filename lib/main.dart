@@ -619,10 +619,24 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             ],
                           ),
                           const SizedBox(height: 8),
-                          // Third row for mobile - Clear button
+                          // Third row for mobile - Width slider and Clear button
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              const Icon(Icons.brush, size: 20, color: Colors.blue),
+                              const Text('Width', style: TextStyle(fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                width: 120,
+                                child: Slider(
+                                  value: strokeWidth,
+                                  min: 4,
+                                  max: 20,
+                                  divisions: 8,
+                                  activeColor: Colors.blue,
+                                  inactiveColor: Colors.blue.withOpacity(0.3),
+                                  onChanged: (double v) => setState(() => strokeWidth = v),
+                                ),
+                              ),
                               _buildAnimatedButton(
                                 onPressed: () => DrawingCanvas.clearCanvasNotifier.value = true,
                                 icon: Icons.auto_fix_high,
@@ -673,6 +687,22 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           icon: useOutlineFont ? Icons.text_fields : Icons.text_fields_outlined,
                           label: useOutlineFont ? 'Outline' : 'Normal',
                           backgroundColor: useOutlineFont ? Colors.deepPurple : Colors.brown,
+                        ),
+                        const SizedBox(width: 16),
+                        const Icon(Icons.brush, size: 20, color: Colors.blue),
+                        const SizedBox(width: 8),
+                        const Text('Width', style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(
+                          width: 120,
+                          child: Slider(
+                            value: strokeWidth,
+                            min: 4,
+                            max: 20,
+                            divisions: 8,
+                            activeColor: Colors.blue,
+                            inactiveColor: Colors.blue.withOpacity(0.3),
+                            onChanged: (double v) => setState(() => strokeWidth = v),
+                          ),
                         ),
                         const SizedBox(width: 16),
                         _buildAnimatedButton(
