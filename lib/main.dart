@@ -251,11 +251,221 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           title: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.edit, color: Colors.pink),
-              const SizedBox(width: 8),
-              const Text('LookWriteLearn'),
-              const SizedBox(width: 8),
-              Icon(Icons.school, color: Colors.blue),
+              // L - Pink with fun font
+              Text(
+                'L',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  shadows: [
+                    Shadow(
+                      color: Colors.pink.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // o - Orange with fun font
+              Text(
+                'o',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 26,
+                  color: Colors.orange,
+                  shadows: [
+                    Shadow(
+                      color: Colors.orange.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // o - Yellow with fun font
+              Text(
+                'o',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 30,
+                  color: Colors.yellow.shade700,
+                  shadows: [
+                    Shadow(
+                      color: Colors.yellow.shade400,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // k - Green with fun font
+              Text(
+                'k',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 28,
+                  color: Colors.green,
+                  shadows: [
+                    Shadow(
+                      color: Colors.green.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // W - Blue with fun font
+              Text(
+                'W',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                  shadows: [
+                    Shadow(
+                      color: Colors.blue.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // r - Purple with fun font
+              Text(
+                'r',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 24,
+                  color: Colors.purple,
+                  shadows: [
+                    Shadow(
+                      color: Colors.purple.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // i - Red with fun font
+              Text(
+                'i',
+                style: GoogleFonts.caveat(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                  shadows: [
+                    Shadow(
+                      color: Colors.red.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // t - Teal with fun font
+              Text(
+                't',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 26,
+                  color: Colors.teal,
+                  shadows: [
+                    Shadow(
+                      color: Colors.teal.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // e - Indigo with fun font
+              Text(
+                'e',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 28,
+                  color: Colors.indigo,
+                  shadows: [
+                    Shadow(
+                      color: Colors.indigo.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // L - Pink with fun font
+              Text(
+                'L',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  shadows: [
+                    Shadow(
+                      color: Colors.pink.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // e - Orange with fun font
+              Text(
+                'e',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 26,
+                  color: Colors.orange,
+                  shadows: [
+                    Shadow(
+                      color: Colors.orange.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // a - Yellow with fun font
+              Text(
+                'a',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 30,
+                  color: Colors.yellow.shade700,
+                  shadows: [
+                    Shadow(
+                      color: Colors.yellow.shade400,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // r - Green with fun font
+              Text(
+                'r',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 28,
+                  color: Colors.green,
+                  shadows: [
+                    Shadow(
+                      color: Colors.green.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+              // n - Blue with fun font
+              Text(
+                'n',
+                style: GoogleFonts.comicNeue(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                  shadows: [
+                    Shadow(
+                      color: Colors.blue.shade300,
+                      offset: const Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           centerTitle: true,
