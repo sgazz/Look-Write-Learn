@@ -85,6 +85,8 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     final int idx = base.indexOf(currentGuide);
     final int next = (idx + 1) % base.length;
     setState(() => currentGuide = base[next]);
+    // Clear canvas when changing to next letter
+    DrawingCanvas.clearCanvasNotifier.value = true;
     _letterAnimationController.reset();
     _letterAnimationController.forward();
   }
@@ -94,6 +96,8 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
     final int idx = base.indexOf(currentGuide);
     final int prev = (idx - 1) < 0 ? base.length - 1 : idx - 1;
     setState(() => currentGuide = base[prev]);
+    // Clear canvas when changing to previous letter
+    DrawingCanvas.clearCanvasNotifier.value = true;
     _letterAnimationController.reset();
     _letterAnimationController.forward();
   }
