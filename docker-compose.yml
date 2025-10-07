@@ -1,0 +1,19 @@
+services:
+  flutter:
+    build: .
+    container_name: lookwritelearn_flutter
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - flutter_pub_cache:/root/.pub-cache
+    # Expose common dev ports (web/servers). Adjust as needed.
+    ports:
+      - "8080:8080"
+      - "3000:3000"
+      - "3001:3001"
+    command: bash -lc "flutter doctor -v"
+
+volumes:
+  flutter_pub_cache:
+
+
