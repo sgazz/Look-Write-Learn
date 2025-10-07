@@ -338,11 +338,12 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                           const SizedBox(height: 8),
                           // Third row for mobile
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               const Icon(Icons.brush, size: 20),
-                              const SizedBox(width: 8),
                               const Text('Width'),
-                              Expanded(
+                              SizedBox(
+                                width: 120,
                                 child: Slider(
                                   value: strokeWidth,
                                   min: 2,
@@ -376,18 +377,19 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                               label: 'Color',
                               backgroundColor: Colors.purple,
                             ),
-                          const SizedBox(width: 16),
-                          const Icon(Icons.brush, size: 20),
-                          const SizedBox(width: 8),
-                          const Text('Width'),
-                          Expanded(
-                            child: Slider(
-                              value: strokeWidth,
-                              min: 2,
-                              max: 24,
-                              onChanged: (double v) => setState(() => strokeWidth = v),
-                            ),
+                        const SizedBox(width: 16),
+                        const Icon(Icons.brush, size: 20),
+                        const SizedBox(width: 8),
+                        const Text('Width'),
+                        SizedBox(
+                          width: 120,
+                          child: Slider(
+                            value: strokeWidth,
+                            min: 2,
+                            max: 24,
+                            onChanged: (double v) => setState(() => strokeWidth = v),
                           ),
+                        ),
                         ],
                       );
                 },
@@ -471,21 +473,24 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
       builder: (context, child) {
         return Transform.scale(
           scale: _buttonScaleAnimation.value,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              _buttonAnimationController.forward().then((_) {
-                _buttonAnimationController.reverse();
-              });
-              onPressed();
-            },
-            icon: Icon(icon),
-            label: Text(label),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              backgroundColor: backgroundColor,
-              foregroundColor: backgroundColor != null ? Colors.white : null,
-              elevation: 4,
-              shadowColor: backgroundColor?.withOpacity(0.3),
+          child: Tooltip(
+            message: label,
+            child: ElevatedButton(
+              onPressed: () {
+                _buttonAnimationController.forward().then((_) {
+                  _buttonAnimationController.reverse();
+                });
+                onPressed();
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                backgroundColor: backgroundColor,
+                foregroundColor: backgroundColor != null ? Colors.white : null,
+                elevation: 4,
+                shadowColor: backgroundColor?.withOpacity(0.3),
+                shape: const CircleBorder(),
+              ),
+              child: Icon(icon, size: 24),
             ),
           ),
         );
