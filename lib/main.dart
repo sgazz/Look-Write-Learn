@@ -158,11 +158,11 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Row(
+          title: const Row(
             children: [
               Icon(Icons.palette, color: Colors.purple),
-              const SizedBox(width: 8),
-              const Text('Choose Your Color! 🌈'),
+              SizedBox(width: 8),
+              Text('Choose Your Color! 🌈'),
             ],
           ),
           content: SizedBox(
@@ -199,14 +199,14 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             boxShadow: strokeColor == c
                                 ? [
                                     BoxShadow(
-                                      color: c.withOpacity(0.5),
+                                      color: c.withValues(alpha: 0.5),
                                       blurRadius: 8,
                                       spreadRadius: 2,
                                     ),
                                   ]
                                 : [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
+                                      color: Colors.black.withValues(alpha: 0.1),
                                       blurRadius: 4,
                                       offset: const Offset(0, 2),
                                     ),
@@ -240,10 +240,9 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final TextStyle guideStyle = useOutlineFont 
       ? GoogleFonts.comicNeue(
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontSize: 240,
             color: Colors.transparent, // Transparent fill for outline effect
             fontWeight: FontWeight.bold,
@@ -251,63 +250,63 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
               // Create thick outline with multiple shadows
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-3, -3),
+                offset: Offset(-3, -3),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(3, -3),
+                offset: Offset(3, -3),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-3, 3),
+                offset: Offset(-3, 3),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(3, 3),
+                offset: Offset(3, 3),
                 blurRadius: 0,
               ),
               // Additional shadows for thicker outline
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-2, -2),
+                offset: Offset(-2, -2),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(2, -2),
+                offset: Offset(2, -2),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-2, 2),
+                offset: Offset(-2, 2),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(2, 2),
+                offset: Offset(2, 2),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-1, -1),
+                offset: Offset(-1, -1),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(1, -1),
+                offset: Offset(1, -1),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(-1, 1),
+                offset: Offset(-1, 1),
                 blurRadius: 0,
               ),
               Shadow(
                 color: Colors.black,
-                offset: const Offset(1, 1),
+                offset: Offset(1, 1),
                 blurRadius: 0,
               ),
             ],
@@ -316,13 +315,13 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
       : GoogleFonts.comicNeue(
           textStyle: TextStyle(
             fontSize: 240,
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withValues(alpha: 0.3),
             fontWeight: FontWeight.bold,
           ),
         );
 
     return Theme(
-      data: ThemeData.light().copyWith(
+      data: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.indigo,
           brightness: Brightness.light,
@@ -555,7 +554,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           backgroundColor: Colors.orange.shade100,
           foregroundColor: Colors.deepPurple,
           elevation: 8,
-          shadowColor: Colors.orange.withOpacity(0.3),
+          shadowColor: Colors.orange.withValues(alpha: 0.3),
         ),
         body: Column(
           children: [
@@ -564,7 +563,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
               padding: const EdgeInsets.all(8.0),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final isMobile = constraints.maxWidth < 600;
+                  final isMobile = constraints.maxWidth < 1000;
                   return isMobile 
                     ? Column(
                         children: [
@@ -633,7 +632,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                                   max: 20,
                                   divisions: 8,
                                   activeColor: Colors.blue,
-                                  inactiveColor: Colors.blue.withOpacity(0.3),
+                                  inactiveColor: Colors.blue.withValues(alpha: 0.3),
                                   onChanged: (double v) => setState(() => strokeWidth = v),
                                 ),
                               ),
@@ -700,7 +699,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                             max: 20,
                             divisions: 8,
                             activeColor: Colors.blue,
-                            inactiveColor: Colors.blue.withOpacity(0.3),
+                            inactiveColor: Colors.blue.withValues(alpha: 0.3),
                             onChanged: (double v) => setState(() => strokeWidth = v),
                           ),
                         ),
@@ -777,7 +776,7 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
                 backgroundColor: backgroundColor,
                 foregroundColor: backgroundColor != null ? Colors.white : null,
                 elevation: 4,
-                shadowColor: backgroundColor?.withOpacity(0.3),
+                shadowColor: backgroundColor?.withValues(alpha: 0.3),
                 shape: const CircleBorder(),
               ),
               child: Icon(icon, size: 24),
@@ -830,14 +829,14 @@ class _PracticeScreenState extends State<PracticeScreen> with TickerProviderStat
           GuideMode.lower => 'Lowercase Letters', 
           GuideMode.number => 'Numbers',
         },
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: switch (guideMode) {
-              GuideMode.upper => Colors.blue.withOpacity(0.1),
-              GuideMode.lower => Colors.green.withOpacity(0.1),
-              GuideMode.number => Colors.orange.withOpacity(0.1),
-            },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: switch (guideMode) {
+                GuideMode.upper => Colors.blue.withValues(alpha: 0.1),
+                GuideMode.lower => Colors.green.withValues(alpha: 0.1),
+                GuideMode.number => Colors.orange.withValues(alpha: 0.1),
+              },
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: switch (guideMode) {
