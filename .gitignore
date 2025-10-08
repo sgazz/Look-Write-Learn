@@ -33,3 +33,9 @@ android/app/src/main/java/io/flutter/plugins/
 Thumbs.db
 
 
+
+# Backend virtual environment
+backend/venv/
+
+# Log files
+*.log

@@ -53,7 +53,7 @@ def image_to_base64(img):
     img_base64 = base64.b64encode(img_bytes).decode()
     return f"data:image/png;base64,{img_base64}"
 
-def test_backend(api_url='http://localhost:5001'):
+def test_backend(api_url='http://localhost:8001'):
     """Testira backend API sa različitim test slučajevima"""
     
     print("=" * 60)

@@ -1,14 +1,35 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Backend API URL - change this based on your environment
-  static const String _baseUrl = 'http://localhost:5001';
-  
-  // For Android emulator, use: http://10.0.2.2:5001
-  // For iOS simulator, use: http://localhost:5001
-  // For real device, use your computer's IP: http://192.168.x.x:5001
+  // Backend API URL - automatically configured based on platform
+  static String get _baseUrl {
+    const port = 8001;
+    
+    // Web version - use localhost
+    if (kIsWeb) {
+      return 'http://localhost:$port';
+    }
+    
+    // Native apps - detect platform
+    if (Platform.isAndroid) {
+      // Android emulator uses 10.0.2.2 to access host machine
+      return 'http://10.0.2.2:$port';
+    } else if (Platform.isIOS) {
+      // iOS simulator can use localhost
+      // For real device, change this to your computer's IP
+      return 'http://192.168.1.4:$port';
+    } else if (Platform.isMacOS) {
+      // macOS desktop app - use localhost
+      return 'http://127.0.0.1:$port';
+    }
+    
+    // Fallback
+    return 'http://localhost:$port';
+  }
   
   /// Check if backend is healthy
   static Future<bool> checkHealth() async {
