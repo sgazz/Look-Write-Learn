@@ -5,7 +5,7 @@
 
 version:
   revision: "ac4e799d237041cf905519190471f657b657155a"
-  channel: "[user-branch]"
+  channel: "stable"
 
 project_type: app
 
@@ -15,7 +15,10 @@ migration:
     - platform: root
       create_revision: ac4e799d237041cf905519190471f657b657155a
       base_revision: ac4e799d237041cf905519190471f657b657155a
-    - platform: web
+    - platform: android
+      create_revision: ac4e799d237041cf905519190471f657b657155a
+      base_revision: ac4e799d237041cf905519190471f657b657155a
+    - platform: ios
       create_revision: ac4e799d237041cf905519190471f657b657155a
       base_revision: ac4e799d237041cf905519190471f657b657155a
 
