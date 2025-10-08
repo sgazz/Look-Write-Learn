@@ -836,17 +836,14 @@ class _PracticeScreenState extends State<PracticeScreen>
                               ],
                             ),
                             const SizedBox(height: 8),
-                            // Third row for mobile - Width slider and Clear button
+                            // Third row for mobile - Width slider, Clear, and Evaluate
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 const Icon(Icons.brush,
                                     size: 20, color: Colors.blue),
-                                const Text('Width',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                SizedBox(
-                                  width: 120,
+                                Expanded(
+                                  flex: 2,
                                   child: Slider(
                                     value: strokeWidth,
                                     min: 4,
@@ -867,33 +864,31 @@ class _PracticeScreenState extends State<PracticeScreen>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                            // Fourth row for mobile - Evaluate button
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _isEvaluating
-                                    ? const CircularProgressIndicator()
-                                    : ElevatedButton.icon(
-                                        onPressed: _evaluateDrawing,
-                                        icon: const Icon(Icons.check_circle, size: 28),
-                                        label: const Text(
-                                          'Evaluate Drawing',
-                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.purple,
-                                          foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 32,
-                                            vertical: 16,
-                                          ),
-                                          elevation: 8,
-                                          shadowColor: Colors.purple.withValues(alpha: 0.5),
-                                        ),
+                            const SizedBox(height: 12),
+                            // Fourth row for mobile - Evaluate button (full width)
+                            _isEvaluating
+                                ? const Center(child: CircularProgressIndicator())
+                                : SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton.icon(
+                                      onPressed: _evaluateDrawing,
+                                      icon: const Icon(Icons.check_circle, size: 24),
+                                      label: const Text(
+                                        'Evaluate Drawing',
+                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                       ),
-                              ],
-                            ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.purple,
+                                        foregroundColor: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                          vertical: 16,
+                                        ),
+                                        elevation: 8,
+                                        shadowColor: Colors.purple.withValues(alpha: 0.5),
+                                      ),
+                                    ),
+                                  ),
                           ],
                         )
                       : Row(
