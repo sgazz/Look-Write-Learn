@@ -775,7 +775,7 @@ class _PracticeScreenState extends State<PracticeScreen>
               padding: const EdgeInsets.all(8.0),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final isMobile = constraints.maxWidth < 600;
+                  final isMobile = constraints.maxWidth < 1000;
                   return isMobile
                       ? Column(
                           children: [
