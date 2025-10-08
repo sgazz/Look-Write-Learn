@@ -5,13 +5,23 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-# Platform builds
-ios/
-android/
+# Platform builds - keep ios/android, ignore others
 macos/
 linux/
 windows/
 web/
+
+# iOS specific (keep source, ignore build artifacts)
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.generated/
+
+# Android specific (keep source, ignore build artifacts)
+android/.gradle/
+android/app/build/
+android/app/src/main/java/io/flutter/plugins/
 
 # IDEs
 .idea/
