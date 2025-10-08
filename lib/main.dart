@@ -836,14 +836,17 @@ class _PracticeScreenState extends State<PracticeScreen>
                               ],
                             ),
                             const SizedBox(height: 8),
-                            // Third row for mobile - Width slider, Clear, and Evaluate
+                            // Third row for mobile - Width slider and Clear
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 const Icon(Icons.brush,
                                     size: 20, color: Colors.blue),
-                                Expanded(
-                                  flex: 2,
+                                const Text('Width',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  width: 120,
                                   child: Slider(
                                     value: strokeWidth,
                                     min: 4,
@@ -864,31 +867,6 @@ class _PracticeScreenState extends State<PracticeScreen>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12),
-                            // Fourth row for mobile - Evaluate button (full width)
-                            _isEvaluating
-                                ? const Center(child: CircularProgressIndicator())
-                                : SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton.icon(
-                                      onPressed: _evaluateDrawing,
-                                      icon: const Icon(Icons.check_circle, size: 24),
-                                      label: const Text(
-                                        'Evaluate Drawing',
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.purple,
-                                        foregroundColor: Colors.white,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 32,
-                                          vertical: 16,
-                                        ),
-                                        elevation: 8,
-                                        shadowColor: Colors.purple.withValues(alpha: 0.5),
-                                      ),
-                                    ),
-                                  ),
                           ],
                         )
                       : Row(
@@ -1024,6 +1002,46 @@ class _PracticeScreenState extends State<PracticeScreen>
                   ],
                 ),
               ),
+            ),
+            // Evaluate button at the bottom
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: _isEvaluating
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ElevatedButton.icon(
+                      onPressed: _evaluateDrawing,
+                      icon: const Icon(Icons.check_circle, size: 28),
+                      label: const Text(
+                        'Evaluate Drawing',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.purple,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 48,
+                          vertical: 18,
+                        ),
+                        elevation: 8,
+                        shadowColor: Colors.purple.withValues(alpha: 0.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),
