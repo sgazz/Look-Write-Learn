@@ -184,17 +184,17 @@ def get_letter_specific_score(letter, aspect_ratio, contours):
 def get_feedback(score):
     """Generate encouraging feedback based on score"""
     if score >= 90:
-        return "Odlično! Savršeno si napisao/la slovo! 🌟✨"
+        return "Excellent! Perfect letter! 🌟✨"
     elif score >= 80:
-        return "Super! Veoma dobro! 👏🎉"
+        return "Great job! Very good! 👏🎉"
     elif score >= 70:
-        return "Bravo! Nastavi tako! 💪😊"
+        return "Good work! Keep it up! 💪😊"
     elif score >= 60:
-        return "Dobro! Vežbaj još malo! 👍"
+        return "Nice try! Practice a bit more! 👍"
     elif score >= 50:
-        return "Pokušaj ponovo! Možeš bolje! 🎯"
+        return "Try again! You can do better! 🎯"
     else:
-        return "Polako! Prati model slovo i pokušaj još jednom! 💡"
+        return "Keep trying! Follow the model letter! 💡"
 
 def get_accuracy_level(score):
     """Return accuracy level category"""
@@ -212,15 +212,15 @@ def get_tips(score, letter):
     tips = []
     
     if score < 70:
-        tips.append(f"Prati linije model slova '{letter}' pažljivije")
-        tips.append("Pokušaj da crtiš sporije i preciznije")
+        tips.append(f"Follow the model letter '{letter}' more carefully")
+        tips.append("Try to draw slower and more precisely")
     
     if score < 50:
-        tips.append("Posmotri dobro model slovo pre nego što počneš")
-        tips.append("Ne žuri se, važna je tačnost!")
+        tips.append("Look at the model letter carefully before you start")
+        tips.append("Take your time, accuracy is important!")
     
     if not tips:
-        tips.append("Nastavi vežbati i biće još bolje!")
+        tips.append("Keep practicing and you'll get even better!")
     
     return tips
 
