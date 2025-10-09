@@ -27,8 +27,70 @@ flutter:
   
   # Template assets for offline character recognition
   assets:
-    - assets/templates/uppercase/
-    - assets/templates/lowercase/
-    - assets/templates/numbers/
+    # Uppercase letters (A-Z)
+    - assets/templates/uppercase/A/
+    - assets/templates/uppercase/B/
+    - assets/templates/uppercase/C/
+    - assets/templates/uppercase/D/
+    - assets/templates/uppercase/E/
+    - assets/templates/uppercase/F/
+    - assets/templates/uppercase/G/
+    - assets/templates/uppercase/H/
+    - assets/templates/uppercase/I/
+    - assets/templates/uppercase/J/
+    - assets/templates/uppercase/K/
+    - assets/templates/uppercase/L/
+    - assets/templates/uppercase/M/
+    - assets/templates/uppercase/N/
+    - assets/templates/uppercase/O/
+    - assets/templates/uppercase/P/
+    - assets/templates/uppercase/Q/
+    - assets/templates/uppercase/R/
+    - assets/templates/uppercase/S/
+    - assets/templates/uppercase/T/
+    - assets/templates/uppercase/U/
+    - assets/templates/uppercase/V/
+    - assets/templates/uppercase/W/
+    - assets/templates/uppercase/X/
+    - assets/templates/uppercase/Y/
+    - assets/templates/uppercase/Z/
+    # Lowercase letters (a-z)
+    - assets/templates/lowercase/a/
+    - assets/templates/lowercase/b/
+    - assets/templates/lowercase/c/
+    - assets/templates/lowercase/d/
+    - assets/templates/lowercase/e/
+    - assets/templates/lowercase/f/
+    - assets/templates/lowercase/g/
+    - assets/templates/lowercase/h/
+    - assets/templates/lowercase/i/
+    - assets/templates/lowercase/j/
+    - assets/templates/lowercase/k/
+    - assets/templates/lowercase/l/
+    - assets/templates/lowercase/m/
+    - assets/templates/lowercase/n/
+    - assets/templates/lowercase/o/
+    - assets/templates/lowercase/p/
+    - assets/templates/lowercase/q/
+    - assets/templates/lowercase/r/
+    - assets/templates/lowercase/s/
+    - assets/templates/lowercase/t/
+    - assets/templates/lowercase/u/
+    - assets/templates/lowercase/v/
+    - assets/templates/lowercase/w/
+    - assets/templates/lowercase/x/
+    - assets/templates/lowercase/y/
+    - assets/templates/lowercase/z/
+    # Numbers (0-9)
+    - assets/templates/numbers/0/
+    - assets/templates/numbers/1/
+    - assets/templates/numbers/2/
+    - assets/templates/numbers/3/
+    - assets/templates/numbers/4/
+    - assets/templates/numbers/5/
+    - assets/templates/numbers/6/
+    - assets/templates/numbers/7/
+    - assets/templates/numbers/8/
+    - assets/templates/numbers/9/
 
 

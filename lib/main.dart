@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'services/api_service.dart';
 import 'services/template_matcher.dart';
 import 'widgets/drawing_canvas.dart';
 
@@ -207,17 +206,17 @@ class _PracticeScreenState extends State<PracticeScreen>
                                   : Colors.black26,
                               width: strokeColor == c ? 3 : 1,
                             ),
-                            boxShadow: strokeColor == c
+                                    boxShadow: strokeColor == c
                                 ? [
                                     BoxShadow(
-                                      color: c.withOpacity(0.5),
+                                      color: c.withValues(alpha: 0.5),
                                       blurRadius: 8,
                                       spreadRadius: 2,
                                     ),
                                   ]
                                 : [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
+                                      color: Colors.black.withValues(alpha: 0.1),
                                       blurRadius: 4,
                                       offset: const Offset(0, 2),
                                     ),
@@ -521,7 +520,7 @@ class _PracticeScreenState extends State<PracticeScreen>
         : GoogleFonts.comicNeue(
             textStyle: TextStyle(
               fontSize: 240,
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withValues(alpha: 0.3),
               fontWeight: FontWeight.bold,
             ),
           );
@@ -759,7 +758,7 @@ class _PracticeScreenState extends State<PracticeScreen>
           backgroundColor: Colors.orange.shade100,
           foregroundColor: Colors.deepPurple,
           elevation: 8,
-          shadowColor: Colors.orange.withOpacity(0.3),
+          shadowColor: Colors.orange.withValues(alpha: 0.3),
         ),
         body: Column(
           children: [
@@ -923,7 +922,7 @@ class _PracticeScreenState extends State<PracticeScreen>
                                 max: 20,
                                 divisions: 8,
                                 activeColor: Colors.blue,
-                                inactiveColor: Colors.blue.withOpacity(0.3),
+                                inactiveColor: Colors.blue.withValues(alpha: 0.3),
                                 onChanged: (double v) =>
                                     setState(() => strokeWidth = v),
                               ),
@@ -1067,7 +1066,7 @@ class _PracticeScreenState extends State<PracticeScreen>
                 backgroundColor: backgroundColor,
                 foregroundColor: backgroundColor != null ? Colors.white : null,
                 elevation: 4,
-                shadowColor: backgroundColor?.withOpacity(0.3),
+                shadowColor: backgroundColor?.withValues(alpha: 0.3),
                 shape: const CircleBorder(),
               ),
               child: Icon(icon, size: 24),
@@ -1120,14 +1119,14 @@ class _PracticeScreenState extends State<PracticeScreen>
           GuideMode.lower => 'Lowercase Letters',
           GuideMode.number => 'Numbers',
         },
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: switch (guideMode) {
-              GuideMode.upper => Colors.blue.withOpacity(0.1),
-              GuideMode.lower => Colors.green.withOpacity(0.1),
-              GuideMode.number => Colors.orange.withOpacity(0.1),
-            },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: switch (guideMode) {
+                GuideMode.upper => Colors.blue.withValues(alpha: 0.1),
+                GuideMode.lower => Colors.green.withValues(alpha: 0.1),
+                GuideMode.number => Colors.orange.withValues(alpha: 0.1),
+              },
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: switch (guideMode) {
@@ -1180,3 +1179,29 @@ class _PracticeScreenState extends State<PracticeScreen>
 }
 
 enum GuideMode { upper, lower, number }
+
+/// Evaluation result model
+class EvaluationResult {
+  final int score;
+  final String feedback;
+  final String letter;
+  final String accuracy;
+  final List<String> tips;
+
+  EvaluationResult({
+    required this.score,
+    required this.feedback,
+    required this.letter,
+    required this.accuracy,
+    required this.tips,
+  });
+
+  String get emoji {
+    if (score >= 90) return '🌟';
+    if (score >= 80) return '🎉';
+    if (score >= 70) return '😊';
+    if (score >= 60) return '👍';
+    if (score >= 50) return '🎯';
+    return '💡';
+  }
+}
