@@ -14,6 +14,7 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.2.1
   http: ^1.1.0
+  image: ^4.2.0  # For template matching and SSIM
 
 dev_dependencies:
   flutter_test:
@@ -23,5 +24,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   # Using Google Fonts at runtime for freehand guide letters (e.g., Caveat)
+  
+  # Template assets for offline character recognition
+  assets:
+    - assets/templates/uppercase/
+    - assets/templates/lowercase/
+    - assets/templates/numbers/
 
 

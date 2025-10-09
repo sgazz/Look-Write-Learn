@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'services/api_service.dart';
+import 'services/template_matcher.dart';
 import 'widgets/drawing_canvas.dart';
 
 void main() {
@@ -262,7 +263,7 @@ class _PracticeScreenState extends State<PracticeScreen>
     }
   }
 
-  /// Evaluate drawing using backend API
+  /// Evaluate drawing using offline template matching
   Future<void> _evaluateDrawing() async {
     if (_isEvaluating) return;
 
@@ -276,33 +277,25 @@ class _PracticeScreenState extends State<PracticeScreen>
         return;
       }
 
-      // Check backend health
-      final isHealthy = await ApiService.checkHealth();
-      if (!isHealthy) {
-        _showError('Backend is not available. Please make sure it\'s running.');
-        return;
-      }
-
-      // Get mode string
-      String mode = 'upper';
-      if (guideMode == GuideMode.lower) {
-        mode = 'lower';
-      } else if (guideMode == GuideMode.number) {
-        mode = 'number';
-      }
-
-      // Send to backend
-      final result = await ApiService.evaluateDrawing(
-        imageBytes: imageBytes,
-        letter: currentGuide,
-        mode: mode,
+      // Use offline template matching
+      final score = await TemplateMatcher.evaluateDrawing(
+        imageBytes,
+        currentGuide,
       );
 
-      if (result != null) {
-        _showResults(result);
-      } else {
-        _showError('Failed to evaluate drawing. Please try again.');
-      }
+      // Create result
+      final result = EvaluationResult(
+        score: score,
+        feedback: TemplateMatcher.getFeedback(score),
+        letter: currentGuide,
+        accuracy: TemplateMatcher.getAccuracy(score),
+        tips: TemplateMatcher.getTips(score, currentGuide),
+      );
+
+      _showResults(result);
+    } catch (e) {
+      print('Error evaluating drawing: $e');
+      _showError('Failed to evaluate drawing. Please try again.');
     } finally {
       setState(() => _isEvaluating = false);
     }

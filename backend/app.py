@@ -7,6 +7,18 @@ import io
 import base64
 import logging
 
+# Import ML model
+try:
+    from ml_model import get_model
+    ML_AVAILABLE = True
+    logger_setup = logging.getLogger(__name__)
+    logger_setup.info("✅ ML model imported successfully!")
+except Exception as e:
+    ML_AVAILABLE = False
+    logger_setup = logging.getLogger(__name__)
+    logger_setup.warning(f"⚠️ ML model not available: {e}")
+    logger_setup.warning("Falling back to OpenCV-only scoring")
+
 app = Flask(__name__)
 CORS(app)
 
@@ -88,10 +100,102 @@ def compare_drawing():
 def calculate_similarity(drawing, letter, mode):
     """
     Calculate similarity between drawing and target letter
-    Uses multiple techniques:
-    1. Edge detection and comparison
-    2. Contour analysis
-    3. Pixel coverage
+    Uses ML model if available, otherwise falls back to OpenCV
+    """
+    try:
+        # Try ML-based recognition first
+        if ML_AVAILABLE:
+            return calculate_similarity_ml(drawing, letter, mode)
+        else:
+            # Fallback to OpenCV-based scoring
+            return calculate_similarity_opencv(drawing, letter, mode)
+    
+    except Exception as e:
+        logger.error(f"Error calculating similarity: {e}")
+        return 50  # Default middle score on error
+
+def calculate_similarity_ml(drawing, letter, mode):
+    """
+    ML-based similarity calculation using CNN model
+    """
+    try:
+        # Get ML model
+        model = get_model()
+        
+        # Evaluate drawing
+        is_correct, confidence, ml_score, top_5 = model.evaluate_drawing(drawing, letter)
+        
+        logger.info(f"ML Prediction: {top_5[0][0]} (confidence: {confidence:.2f})")
+        logger.info(f"Expected: {letter}, Correct: {is_correct}, Score: {ml_score}")
+        
+        # Combine ML score with OpenCV quality metrics
+        opencv_quality = calculate_quality_score(drawing)
+        
+        # Weighted combination: 70% ML, 30% quality
+        final_score = int(ml_score * 0.7 + opencv_quality * 0.3)
+        
+        # Ensure bounds
+        final_score = max(0, min(final_score, 95))
+        
+        return final_score
+    
+    except Exception as e:
+        logger.error(f"ML scoring failed: {e}, falling back to OpenCV")
+        return calculate_similarity_opencv(drawing, letter, mode)
+
+def calculate_quality_score(drawing):
+    """
+    Ocenjuje kvalitet crteža (stroke quality, coverage, etc.)
+    """
+    try:
+        # Convert to grayscale
+        gray = cv2.cvtColor(drawing, cv2.COLOR_RGB2GRAY)
+        
+        # Apply thresholding
+        _, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
+        
+        # Calculate coverage
+        coverage = np.count_nonzero(binary) / binary.size
+        
+        # Find contours
+        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        if not contours:
+            return 30  # Low score for empty drawing
+        
+        # Get main contour
+        main_contour = max(contours, key=cv2.contourArea)
+        
+        # Calculate metrics
+        contour_area = cv2.contourArea(main_contour)
+        hull = cv2.convexHull(main_contour)
+        hull_area = cv2.contourArea(hull)
+        solidity = contour_area / hull_area if hull_area > 0 else 0
+        
+        # Quality score based on metrics
+        quality_score = 50
+        
+        # Coverage bonus
+        if 0.05 < coverage < 0.4:
+            quality_score += 25
+        elif coverage > 0.4:
+            quality_score += 10
+        
+        # Solidity bonus
+        if solidity > 0.6:
+            quality_score += 25
+        elif solidity > 0.4:
+            quality_score += 15
+        
+        return min(quality_score, 100)
+    
+    except:
+        return 50
+
+def calculate_similarity_opencv(drawing, letter, mode):
+    """
+    OpenCV-based similarity calculation (fallback method)
+    Original algorithm for when ML is not available
     """
     try:
         # Convert to grayscale
@@ -125,7 +229,6 @@ def calculate_similarity(drawing, letter, mode):
         aspect_ratio = w / h if h > 0 else 1
         
         # Basic scoring based on metrics
-        # This is a simplified version - can be improved with ML
         base_score = 50  # Start with 50%
         
         # Coverage bonus (not too little, not too much)
@@ -150,8 +253,8 @@ def calculate_similarity(drawing, letter, mode):
         return int(final_score)
     
     except Exception as e:
-        logger.error(f"Error calculating similarity: {e}")
-        return 50  # Default middle score on error
+        logger.error(f"Error in OpenCV scoring: {e}")
+        return 50
 
 def get_letter_specific_score(letter, aspect_ratio, contours):
     """
